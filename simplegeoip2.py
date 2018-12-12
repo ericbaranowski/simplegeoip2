@@ -8,6 +8,7 @@ from __future__ import unicode_literals, print_function
 from os import path
 from collections import OrderedDict
 from argparse import ArgumentParser
+from pygments import highlight, lexers, formatters
 import json
 
 import geoip2.database
@@ -95,7 +96,7 @@ def _main():
         results = []
         for ip_address in args.ip_address:
             results.append(GeoIP(args.database_directory).lookup(ip_address))
-    print(json.dumps(results, ensure_ascii=False, indent=2))
+    print(highlight(json.dumps(results, ensure_ascii=False, indent=2), lexers.JsonLexer(), formatters.TerminalFormatter()))
 
 
 if __name__ == "__main__":
